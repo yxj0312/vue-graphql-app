@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+import { createApp, h, provide } from 'vue'
 import { 
     ApolloClient, 
     createHttpLink, 
@@ -6,6 +6,7 @@ import {
 from '@apollo/client'
 
 import gql from 'graphql-tag'
+import { DefaultApolloClient } from '@vue/apollo-composable'
 
 import App from './App.vue'
 
@@ -29,12 +30,19 @@ const ALL_BOOKS_QUERY = gql`
         }
     }
 `
-apolloClient
-    .query({
-        query: ALL_BOOKS_QUERY,
-    })
-    .then(res => {
-        console.log(res)
-    })
+// apolloClient
+//     .query({
+//         query: ALL_BOOKS_QUERY,
+//     })
+//     .then(res => {
+//         console.log(res)
+//     })
 
-createApp(App).mount('#app')
+// createApp(App).mount('#app')
+
+const app = createApp({
+    setup() {
+        provide(DefaultApolloClient, apolloClient)
+    },
+    render: () => h(App),
+})
