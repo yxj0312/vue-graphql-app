@@ -3,7 +3,7 @@ import {
     ApolloClient, 
     createHttpLink, 
     InMemoryCache } 
-from '@apollo/client'
+from '@apollo/client/core'
 
 import gql from 'graphql-tag'
 import { DefaultApolloClient } from '@vue/apollo-composable'
