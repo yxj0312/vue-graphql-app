@@ -1,3 +1,11 @@
+<template>
+  <div>
+    <p v-for="book in result.allBooks" :key="book.id">
+      {{ book.title }}
+    </p>
+  </div>
+</template>
+
 <script>
 import { useQuery } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
@@ -20,10 +28,6 @@ export default {
   },
 }
 </script>
-
-<template>
- <div></div>
-</template>
 
 <style>
 #app {
