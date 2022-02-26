@@ -2,6 +2,7 @@
   <div>
     <input type="search" v-model="searchTerm" />
     <p v-if="loading">Loading...</p>
+    <p v-else-if="error">Something went wrong! Please try again</p>
     <template v-else>
       <p v-for="book in result.allBooks" :key="book.id">
         {{ book.title }}
@@ -19,12 +20,12 @@ export default {
   name: "App",
   setup() {
     const searchTerm = ref("");
-    const { result, loading } = useQuery(ALL_BOOKS_QUERY, () => ({
+    const { result, loading, error } = useQuery(ALL_BOOKS_QUERY, () => ({
       search: searchTerm.value,
     }));
 
     console.log(result);
-    return { result, searchTerm, loading };
+    return { result, searchTerm, loading, error };
   },
 };
 </script>
