@@ -3,7 +3,7 @@
     <input type="search" v-model="searchTerm" />
     <p v-if="loading">Loading...</p>
     <p v-else-if="error">Something went wrong! Please try again</p>
-    <template v-else>
+    <template v-else-if="result">
       <p v-for="book in result.allBooks" :key="book.id">
         {{ book.title }}
       </p>
@@ -26,7 +26,8 @@ export default {
       search: searchTerm.value,
     }),
     () => ({
-      debounce: 500
+      debounce: 500,
+      enabled: searchTerm.value.length > 2
     })
     );
 
