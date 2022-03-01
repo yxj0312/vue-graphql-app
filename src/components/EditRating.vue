@@ -32,3 +32,4 @@ export default {
     return { rating, updateRating }
   },
 }
+</script>
