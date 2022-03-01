@@ -5,7 +5,8 @@
     <p v-else-if="error">Something went wrong! Please try again</p>
     <template v-else>
       <p v-for="book in books" :key="book.id">
-        {{ book.title }}
+        {{ book.title }} - {{ book.rating }}
+        <button @click="activeBook = book">Edit rating</button>
       </p>
     </template>
   </div>
@@ -19,21 +20,22 @@ import ALL_BOOKS_QUERY from "./graphql/allBooks.query.gql";
 export default {
   name: "App",
   setup() {
-    const searchTerm = ref("");
+    const searchTerm = ref("")
+    const activeBook = ref(null)
     const { result, loading, error } = useQuery(
-      ALL_BOOKS_QUERY, 
+      ALL_BOOKS_QUERY,
       () => ({
-      search: searchTerm.value,
-    }),
-    () => ({
-      debounce: 500,
-      enabled: searchTerm.value.length > 2
-    })
+        search: searchTerm.value,
+      }),
+      () => ({
+        debounce: 500,
+        enabled: searchTerm.value.length > 2
+      })
     )
 
     const books = useResult(result, [], data => data.allBooks)
 
-    return { books, searchTerm, loading, error };
+    return { books, searchTerm, loading, error, activeBook };
   },
 };
 </script>
