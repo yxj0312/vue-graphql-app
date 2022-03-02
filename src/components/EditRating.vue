@@ -6,6 +6,7 @@
     @keyup.esc="$emit('closeForm')"
   />
   <p v-if="loading">Updating...</p>
+  <p v-if="error">{{error}}</p>
 </template>
 
 <script>
@@ -29,7 +30,7 @@ export default {
     // we create a local copy of the prop to edit the rating
     const rating = ref(props.initialRating)
 
-    const { mutate: updateRating, onDone, loading } = useMutation(UPDATE_BOOK_MUTATION, ()=>({
+    const { mutate: updateRating, onDone, loading, error } = useMutation(UPDATE_BOOK_MUTATION, ()=>({
       variables: {
         id: props.bookId,
         rating: parseFloat(rating.value)
@@ -45,7 +46,7 @@ export default {
       emit('closeForm')
     })
 
-    return { rating, updateRating, loading }
+    return { rating, updateRating, loading, error }
   },
 }
 </script>
